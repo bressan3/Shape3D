@@ -1,4 +1,4 @@
-document.write('<script type="text/javascript" src="ShapeMaker3D.js"></script>');
+document.write('<script type="text/javascript" src="interface.js"></script>');
 
 function writeFile(){
 
@@ -125,6 +125,7 @@ fileInput.addEventListener('change', function(e) {
                 var bAux = "";
                 var aAux = "";
                 console.log(rAux+","+gAux+","+bAux+","+aAux);
+                document.getElementById("vertIndex").max = curVertices.length - 1;
             }
         }
         reader.readAsText(file);

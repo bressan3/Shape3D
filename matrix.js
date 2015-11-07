@@ -1,4 +1,4 @@
-document.write('<script type="text/javascript" src="ShapeMaker3D.js"></script>');
+document.write('<script type="text/javascript" src="interface.js"></script>');
 
 function myRotate(x,y,z,objOrCamera) {
     var m;
