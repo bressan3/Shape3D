@@ -88,6 +88,7 @@ fileInput.addEventListener('change', function(e) {
                     i++;
                 }
                 curVertices.push([parseFloat(xAux),parseFloat(zAux),parseFloat(yAux)]);
+                vertexCount++;
                 console.log(xAux);
                 console.log(yAux);
                 console.log(xAux);
@@ -95,7 +96,6 @@ fileInput.addEventListener('change', function(e) {
                 yAux = "";
                 zAux = "";
             }
-
             var rAux = "";
             var gAux = "";
             var bAux = "";
@@ -126,20 +126,6 @@ fileInput.addEventListener('change', function(e) {
                 var aAux = "";
                 console.log(rAux+","+gAux+","+bAux+","+aAux);
             }
-        
-            transMat = [
-             [1, 0, 0, 0],
-             [0, 1, 0, 0],
-             [0, 0, 1, 0],
-             [0, 0, 0, 1]];
-             gl.uniformMatrix4fv(transMatLoc, false, flatten(transMat));
-
-            scaleMat = [
-             [1, 0, 0, 0],
-             [0, 1, 0, 0],
-             [0, 0, 1, 0],
-             [0, 0, 0, 1]];
-             gl.uniformMatrix4fv(scaleMatLoc, false, flatten(scaleMat));
         }
         reader.readAsText(file);
     } else {

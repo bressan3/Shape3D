@@ -7,7 +7,7 @@ function myRotate(x,y,z,objOrCamera) {
     else m = rotateZ(z*0.1);
 
     if(objOrCamera == 'o'){
-        for(var i=0; i<curVertices.length; i++){
+        for(var i=currentFace; i<curVertices.length; i++){
             var curVerticesAux = [[curVertices[i][0]],[curVertices[i][1]],
             [curVertices[i][2]],[1]];
             var resultMatrix = mult(m,curVerticesAux);
@@ -27,9 +27,7 @@ function myTranslate(x,y,z){
         [0,0,0,1]
     ];
 
-    //transMat = mult(tMat,transMat);
-    //gl.uniformMatrix4fv(transMatLoc, false, flatten(transMat));
-    for(var i=0; i<curVertices.length; i++){
+    for(var i=currentFace; i<curVertices.length; i++){
         var curVerticesAux = [[curVertices[i][0]],[curVertices[i][1]],
         [curVertices[i][2]],[1]];
         var resultMatrix = mult(tMat,curVerticesAux);
@@ -42,9 +40,8 @@ function myScale(x,y,z){
                 [0,y,0,0],
                 [0,0,z,0],
                 [0,0,0,1]];
-    //scaleMat = mult(sMat,scaleMat);
-    //gl.uniformMatrix4fv(scaleMatLoc, false, flatten(scaleMat));
-    for(var i=0; i<curVertices.length; i++){
+
+    for(var i=currentFace; i<curVertices.length; i++){
         var curVerticesAux = [[curVertices[i][0]],[curVertices[i][1]],
         [curVertices[i][2]],[1]];
         var resultMatrix = mult(sMat,curVerticesAux);
@@ -83,25 +80,23 @@ function rotateZ(theta){
     ];
     
     return rMat;
-
 }
 
 function mult(m1, m2) {
-    var tempArray = [];
+    var newM = [];
     var result = [];
-    if(m1[0].length != m2.length) {
-        return "can't do that";
-    } else {
+    if(m1[0].length != m2.length) throw "Invalid sizes"; 
+    else {
         for(var i = 0; i < m1.length; i++){
-            tempArray = [];
+            newM = [];
             for(var j = 0; j < m2[0].length; j++) {
                 var temp = 0;
                 for(var k = 0; k < m2.length; k++){
                     temp += m1[i][k] * m2[k][j];
                 }
-                tempArray.push(temp);
+                newM.push(temp);
             }
-            result.push(tempArray);
+            result.push(newM);
         }
         return result;
     }
@@ -144,6 +139,40 @@ function perspective( fovy, aspect, near, far )
     result[2][3] = -2 * near * far / d;
     result[3][2] = -1;
     result[3][3] = 0.0;
+
+    return result;
+}
+
+function lookAt( eye, at, up )
+{
+    if ( !Array.isArray(eye) || eye.length != 3) {
+        throw "lookAt(): first parameter [eye] must be an a vec3";
+    }
+
+    if ( !Array.isArray(at) || at.length != 3) {
+        throw "lookAt(): first parameter [at] must be an a vec3";
+    }
+
+    if ( !Array.isArray(up) || up.length != 3) {
+        throw "lookAt(): first parameter [up] must be an a vec3";
+    }
+
+    if ( equal(eye, at) ) {
+        return mat4();
+    }
+
+    var v = normalize( subtract(at, eye) );  // view direction vector
+    var n = normalize( cross(v, up) );       // perpendicular vector
+    var u = normalize( cross(n, v) );        // "new" up vector
+
+    v = negate( v );
+
+    var result = mat4(
+        vec4( n, -dot(n, eye) ),
+        vec4( u, -dot(u, eye) ),
+        vec4( v, -dot(v, eye) ),
+        vec4()
+    );
 
     return result;
 }
