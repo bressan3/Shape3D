@@ -52,8 +52,8 @@ function myScale(x,y,z){
 function rotateX(theta){
     var rMat = [
         [1,0,0,0],
-        [0,Math.cos(theta),Math.sin(theta),0],
-        [0,-Math.sin(theta),Math.cos(theta),0],
+        [0,Math.cos(theta),-Math.sin(theta),0],
+        [0,Math.sin(theta),Math.cos(theta),0],
         [0,0,0,1]   
     ];
 
@@ -62,9 +62,9 @@ function rotateX(theta){
 
 function rotateY(theta){
     var rMat = [
-        [Math.cos(theta),0,-Math.sin(theta),0],
+        [Math.cos(theta),0,Math.sin(theta),0],
         [0,1,0,0],
-        [Math.sin(theta),0,Math.cos(theta),0],
+        [-Math.sin(theta),0,Math.cos(theta),0],
         [0,0,0,1]
     ];
 
