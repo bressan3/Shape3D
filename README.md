@@ -1,10 +1,10 @@
 # ShapeMaker3D
 
-![alt tag](https://raw.github.com/bressan3/Shape3D/master/screen.png)
-
 Third Computer Graphics Assignment.
 ShaperMaker3D is a Javascript based 3d graphics platform that allows you to load a 2D shape saved
 using [CGDrawingTool](https://github.com/bressan3/CGDrawingTool) and manipulating it in 3D by changing the camera's perspective, moving, rotating, scaling, changing vertices proprieties, ading new layers and saving changes to the loaded shape.
+
+![alt tag](https://raw.github.com/bressan3/Shape3D/master/Screen/Screen.png)
 
 # Openning it
 
